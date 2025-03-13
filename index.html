@@ -1,22 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Expense Tracker</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-<h1>expense tracker</h1>
-<div class="form-container">
-    <input type="text" id="description" placeholder="Description">
-    <input type="number" id="amount" placeholder="Amount" step="0.01">
-    <button onclick="addExpense()">Add Expense</button>
-</div>
+<main class="container">
+    <header>
+        <h1>Expense Tracker</h1>
+    </header>
 
-<h2>Expense List: </h2>
-<ul id="expenseList"></ul>
-<div class="total" id="total">Total</div>
+    <section class="panel">
+        <form id="expense-form" class="form">
+            <input type="hidden" id="editing-id" />
+            <div class="row">
+                <label for="title">Title</label>
+                <input id="title" name="title" required />
+            </div>
+            <div class="row">
+                <label for="amount">Amount</label>
+                <input id="amount" name="amount" type="number" step="0.01" required />
+            </div>
+            <div class="row">
+                <label for="category">Category</label>
+                <input id="category" name="category" />
+            </div>
+            <div class="row">
+                <label for="date">Date</label>
+                <input id="date" name="date" type="date" />
+            </div>
+            <div class="form-actions">
+                <button type="submit" id="save-btn">Add</button>
+                <button type="button" id="cancel-edit" class="secondary" style="display:none">Cancel</button>
+            </div>
+        </form>
+    </section>
 
-<script src="app.js"></script>
+    <section class="panel">
+        <div class="filters">
+            <div>
+                <label for="filter-from">From</label>
+                <input id="filter-from" type="date" />
+            </div>
+            <div>
+                <label for="filter-to">To</label>
+                <input id="filter-to" type="date" />
+            </div>
+            <div>
+                <label for="filter-category">Category</label>
+                <input id="filter-category" placeholder="All" />
+            </div>
+            <div class="filter-actions">
+                <button id="apply-filters">Apply</button>
+                <button id="clear-filters" class="secondary">Clear</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel summary">
+        <div>Total: $<span id="total">0.00</span></div>
+        <div class="controls">
+            <button id="export-json" class="secondary">Export JSON</button>
+            <button id="import-json" class="secondary">Import JSON</button>
+            <input type="file" id="import-file" accept="application/json" style="display:none" />
+            <button id="clear-all" class="danger">Clear All</button>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div id="list" class="list"></div>
+        <div id="empty" class="empty">No expenses yet.</div>
+    </section>
+
+    <footer>
+        <small>Static frontend — stores data in localStorage</small>
+    </footer>
+</main>
+
+<script type="module" src="./src/app.js"></script>
 </body>
 </html>
